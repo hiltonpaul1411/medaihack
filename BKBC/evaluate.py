@@ -1,26 +1,3 @@
-#!/usr/bin/env python3
-"""
-evaluate.py — Cross-validation for model development
-======================================================
-Runs stratified k-fold cross-validation on the BKBC training data to
-estimate model performance. Use this to iterate on your model before
-final submission.
-
-Both XGBoost and Lasso LR are evaluated with the same CV protocol so
-their performance is directly comparable.
-
-USAGE
------
-    python evaluate.py
-    python evaluate.py --data /path/to/BKBC_train/train.csv
-    python evaluate.py --data /path/to/train.csv --folds 10
-
-OUTPUTS  (written to --out directory)
--------
-    cv_confusion_matrix_{model}.png  — k-fold CV confusion matrix per model
-    cv_results.csv                   — per-fold metrics for all models
-"""
-
 import argparse
 import logging
 from pathlib import Path
@@ -50,7 +27,7 @@ logging.basicConfig(
 
 _SCRIPT_DIR   = Path(__file__).resolve().parent
 _DEFAULT_DATA = _SCRIPT_DIR.parent.parent / "BKBC_train" / "train.csv"
-_DEFAULT_OUT  = _SCRIPT_DIR.parent.parent / "results"
+_DEFAULT_OUT  = _SCRIPT_DIR.parent.parent / "hilton" / "BKBC" / "results"
 
 
 def parse_args():
@@ -65,7 +42,7 @@ def parse_args():
     p.add_argument(
         "--out",
         default=str(_DEFAULT_OUT),
-        help="Directory for CV outputs (default: ../../results/)",
+        help="Directory for CV outputs (default: results/)",
     )
     p.add_argument(
         "--folds",
@@ -77,7 +54,6 @@ def parse_args():
 
 
 def run_cv(model, X, y, n_folds, name):
-    """Run stratified k-fold CV and return out-of-fold predictions."""
     cv = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=RANDOM_SEED)
     logging.info(f"[{name}] Running {n_folds}-fold CV...")
 

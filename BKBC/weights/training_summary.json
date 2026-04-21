@@ -1,0 +1,18 @@
+{
+  "model": "Ensemble",
+  "n_samples": 426,
+  "n_features": 177,
+  "n_svd": 150,
+  "calibrated": false,
+  "cv_auc": 0.7386,
+  "cv_logloss": 0.6212,
+  "fold_aucs": [
+    0.7755,
+    0.6589,
+    0.7278,
+    0.7256,
+    0.8139
+  ],
+  "train_auc": 1.0,
+  "train_loss": 0.1429
+}
